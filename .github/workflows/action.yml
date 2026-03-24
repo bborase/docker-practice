@@ -1,4 +1,4 @@
-name: 'image to docker container'
+name: 'image build'
 description: 'we are creating docker image from docker file.'
 on:
     push:
@@ -6,11 +6,11 @@ on:
     workflow_dispatch:
         inputs:
             image_name:
-                description: 'name of the docker image'
+                description: 'my-app'
                 required: true
                 
             tag:
-                description: 'tag of the docker image'
+                description: 'latest'
                 required: true
             dockerfile:
                 description: './Dockerfile'
@@ -22,6 +22,9 @@ jobs:
         steps:
             - name: 'checkout code'
               uses: actions/checkout@v3
-            - name: 'build docker image'
-              run: |
-                docker build -t ${{ inputs.image_name }}:${{ inputs.tag }} -f ${{ inputs.dockerfile}} }} .
+            - name: Build Docker image
+              run: docker build -t $IMAGE_NAME:$TAG -f $DOCKERFILE .
+env:
+    IMAGE_NAME: ${{ inputs.image_name }}
+    TAG: ${{ inputs.tag }}
+    DOCKERFILE: ${{ inputs.dockerfile }}
