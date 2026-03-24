@@ -13,7 +13,7 @@ on:
                 description: 'tag of the docker image'
                 required: true
             dockerfile:
-                description: 'path to the docker file'
+                description: './Dockerfile'
                 required: true
 
 jobs:
