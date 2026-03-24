@@ -1,0 +1,27 @@
+name: 'image to docker container'
+description: 'we are creating docker image from docker file.'
+on:
+    push:
+        branches: [ master ]
+    workflow_dispatch:
+        inputs:
+            image_name:
+                description: 'name of the docker image'
+                required: true
+                
+            tag:
+                description: 'tag of the docker image'
+                required: true
+            dockerfile:
+                description: 'path to the docker file'
+                required: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'checkout code'
+              uses: actions/checkout@v3
+            - name: 'build docker image'
+              run: |
+                docker build -t ${{ inputs.image_name }}:${{ inputs.tag }} -f ${{ inputs.dockerfile }} .
