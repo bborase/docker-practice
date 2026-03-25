@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
         inputs:
             image_name:
-                description: 'my-app'
+                description: 'my-apache-server'
                 required: true
                 
             tag:
@@ -23,7 +23,7 @@ jobs:
             - name: 'checkout code'
               uses: actions/checkout@v3
             - name: Build Docker image
-              run: docker build -t my-app:latest .
+              run: docker build -t my-apache-server:latest .
     deploy:
         needs: build
         runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
            context: .
            push: true
            tags: ${{ secrets.DOCKER_USERNAME }}/my-app:latest 
-           
+
     
             
 
